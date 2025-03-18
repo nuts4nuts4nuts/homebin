@@ -1,0 +1,26 @@
+#!/bin/bash
+
+SURR_STRINGL=$1
+SURR_STRINGR=$2
+if [[ -z "$SURR_STRINGL" ]]; then
+	SURR_STRINGL="("
+	SURR_STRINGR=")"
+elif [[ -z "$SURR_STRINGR" ]]; then
+	if [[ "$SURR_STRINGL" == "[" || "$SURR_STRINGL" == "]" ]]; then
+		SURR_STRINGL="["
+		SURR_STRINGR="]"
+	elif [[ "$SURR_STRINGL" == "{" || "$SURR_STRINGL" == "}" ]]; then
+		SURR_STRINGL="{"
+		SURR_STRINGR="}"
+	elif [[ "$SURR_STRINGL" == "<" || "$SURR_STRINGL" == ">" ]]; then
+		SURR_STRINGL="<"
+		SURR_STRINGR=">"
+	elif [[ "$SURR_STRINGL" == "(" || "$SURR_STRINGL" == ")" ]]; then
+		SURR_STRINGL="("
+		SURR_STRINGR=")"
+	else
+		SURR_STRINGR="$SURR_STRINGL"
+	fi
+fi
+
+sed -E "s/(.*)/$SURR_STRINGL\1$SURR_STRINGR/"
